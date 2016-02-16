@@ -1,0 +1,18 @@
+<script type="text/javascript" src="/site_media/edit_about.js"></script>
+<link rel="stylesheet" href="/site_media/style.css" type="text/css" />
+<div id="ProfileHeader">
+    <div class="FixedContainer row clearfix">
+        <form id="header_find_form" name="header_find_form" action="/search" method="get">
+			<p id="search_for">
+				<label for="find_desc">Search for <span>(e.g. Cheesecake Factory, BJ's)</span></label>
+				<input value="" autocomplete="off" id="find_desc" size="20" tabindex="1" name="find_desc" maxlength="64">
+			</p>
+			<p class="clearfix" id="search_near">
+					<label for="dropperText_Mast">Near <em>(Address, City, State or Zip)</em></label>
+				<input value="San Jose, CA" size="14" id="dropperText_Mast" tabindex="2" name="find_loc" maxlength="64" autocomplete="off">
+				<input type="hidden" value="1" name="ns">
+			</p>
+			<span class="ybtn"><button class="btn-r-l" value="submit" type="submit" tabindex="3" id="header-search-submit"></button></span>
+		</form>     
+    </div>
+</div>

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}User Registration{% endblock %}
+{% block head %}User Registration{% endblock %}
+{% block content %}
+    <h1 id="login_logo"><a href="/"></a></h1>
+        <img class="login_bar" alt="Horizontal Rule" src="https://a248.e.akamai.net/passets.pinterest.com.s3.amazonaws.com/images/login_bar.png">
+    <form id="RegistrationForm" class="Form FancyForm1 AuthForm" method="post" action=".">
+    	{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="register" />
+    </form>
+{% endblock %}

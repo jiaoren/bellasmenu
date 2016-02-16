@@ -1,0 +1,352 @@
+{% load getrange %}
+{% load comments %}
+{% load thumbnail %}
+<script type="text/javascript" src="/site_media/zoomscroll.js"></script>
+<div class="visible loaded" id="zoomScroll"><div pin-id="128985976798264351" class="pin" id="zoom" style="left:763px;">
+    <div id="SocialShare">
+        <ul>
+            <li style="height: 24px;">
+                <iframe scrolling="no" frameborder="0" allowtransparency="true" style="border:none; overflow:hidden; width:80px; height:21px;" src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fpinterest.com%2Fpin%2F128985976798264351%2F&amp;layout=button_count&amp;show_faces=true&amp;width=80&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=21">
+                </iframe>
+            </li>
+            <li style="height: 23px;"><iframe scrolling="no" frameborder="0" allowtransparency="true" src="http://platform.twitter.com/widgets/tweet_button.1340179658.html#_=1342482204432&amp;count=none&amp;id=twitter-widget-6&amp;lang=en&amp;original_referer=http%3A%2F%2Fpinterest.com%2Fpin%2F128985976798264351%2F&amp;size=m&amp;text=wow&amp;url=http%3A%2F%2Fpinterest.com%2Fpin%2F128985976798264351%2F&amp;via=pinterest" class="twitter-share-button twitter-count-none" style="width: 55px; height: 20px;" title="Twitter Tweet Button"></iframe></li>
+            <li><button type="button" class="Button WhiteButton Button11" id="PinEmbed">&lt;&gt; Embed</button></li>
+            <li><a class="Button WhiteButton Button11" id="PinReport" href="flag/">⚐ Report Pin</a></li>  
+            <li><button type="button" class="Button WhiteButton Button11" id="EmailShare" onclick="Modal.show('EmailModal');">@ Email</button></li>
+        </ul>
+    </div>
+
+    <div class="clearfix" id="PinPinner">
+        <a target="_blank" class="ImgLink" id="PinnerImage" href="/user/{{actualuser.username}}/">
+            {% thumbnail actualuser.get_profile.avatar "50x50" crop="center" as im %}
+                <img alt="{{actualuser.get_profile.firstname}} {{actualuser.get_profile.lastname}}" src="{{im.url}}">
+            {% endthumbnail %}
+        </a>
+        <p id="PinnerName">
+            <a target="_blank" href="/user/{{actualuser.username}}/">{{actualuser.get_profile.firstname}} {{actualuser.get_profile.lastname}}</a>
+        </p>
+        <p class="colorless" id="PinnerStats">   
+            Uploaded on {{menu.menuCreateTime}}
+        </p>
+    </div>
+    <div class="ModalContainer" id="EmailModal">
+        <div class="modal thin">
+            <div class="header lg">
+                <a onclick="Modal.close('EmailModal'); Closeup.resetEmailModal(); return false" class="close" href="#"><strong>Close</strong><span></span></a>
+                <h2>Email This Pin</h2>
+            </div>
+            <form class="Form FancyForm" method="post" action="/pin/128985976798264351/share/">
+            	{% csrf_token %}
+                <ul>
+                    <li>
+                        <input type="text" maxlength="180" name="MessageRecipientName" class="ClearOnFocus" id="MessageRecipientName">
+                        <label>Recipient Name</label>
+                        <span class="fff"></span>
+                        <span class="helper red"></span>
+                    </li>
+                    <li>
+                        <input type="text" maxlength="180" name="MessageRecipientEmail" class="ClearOnFocus" id="MessageRecipientEmail">
+                        <label>Recipient Email</label>
+                        <span class="fff"></span>
+                        <span class="helper red"></span>
+                    </li>
+                    <li class="optional">
+                        <textarea maxlength="180" name="MessageBody" class="ClearOnFocus" id="MessageBody"></textarea>
+                        <label>Message (optional)</label>
+                        <span class="fff"></span>
+                    </li>
+                </ul>
+                <div style="display:none"><input type="hidden" value="df08312c99b2c2ef9ad6ca767654f270" name="csrfmiddlewaretoken"></div>
+                <div><button type="button" data-form="EmailModal" class="SubmitButton Button RedButton Button18 disabled">Send Email</button></div>
+                <div class="inputstatus error"></div>
+            </form>
+
+        </div><!-- .modal.thin -->
+
+        <div class="overlay"></div>
+
+    </div><!-- #EmailModal.ModalContainer -->
+
+
+<div class="ModalContainer" id="EmbedModal">
+
+    <div class="modal wide">
+
+        <div class="header lg">
+            <a onclick="Modal.close('EmbedModal'); return false" class="close" href="#"><strong>Close</strong><span></span></a>
+            <h2>Embed Pin on Your Blog</h2>
+        </div>
+
+        <form class="Form FancyForm" method="post" action="#">
+        	{% csrf_token %}
+            <ul>
+                <li>
+                    <input type="text" style="display: inline-block; width: 25%; min-width: 25%;" maxlength="180" name="EmbedImageWidth" class="ClearOnFocus" id="EmbedImageWidth"> <strong style="font-weight: 300;" class="colorlight">px &mdash; Image Width</strong>
+                    <span style="right: 75%" class="fff"></span>
+                </li>
+                <li>
+                    <input type="text" style="display: inline-block; width: 25%; min-width: 25%;" maxlength="180" name="EmbedImageHeight" class="ClearOnFocus" id="EmbedImageHeight"> <strong style="font-weight: 300;" class="colorlight">px &mdash; Image Height</strong>
+                    <span style="right: 75%" class="fff"></span>
+                </li>
+                <li>
+                    <textarea wrap="virtual" onfocus="this.select()" maxlength="180" name="EmbedHTML" class="ClearOnFocus" id="EmbedHTMLCode"></textarea>
+                </li>
+            </ul>
+          </form>
+
+    </div><!-- .modal.wide -->
+
+    <div class="overlay"></div>
+
+</div><!-- #EmbedModal.ModalContainer -->
+
+<div class="ModalContainer" id="ReportModal">
+    <div class="modal thin">
+        <div class="header lg">
+            <a onclick="Modal.close('ReportModal'); Closeup.resetReportModal(); return false" class="close" href="#"><strong>Close</strong><span></span></a>
+            <h2>Report Pin</h2>
+        </div>
+        <form class="Form FancyForm" method="post" action="#">
+        	{% csrf_token %}
+            <p id="ReportLabel">Why are you reporting this pin?</p>
+            <ul>
+                <li>
+                    <div class="option">
+                        <input type="radio" value="nudity" name="reason" id="nudity">
+                        <label for="nudity">Nudity or Pornography</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" value="attacks" name="reason" id="attacks">
+                        <label for="attacks">Attacks a group or individual</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" value="graphic-violence" name="reason" id="graphic-violence">
+                        <label for="graphic-violence">Graphic Violence</label>
+                    </div>
+
+                    <div class="option">
+                        <input type="radio" value="hate-speech" name="reason" id="hate-speech">
+                        <label for="hate-speech">Hateful Speech or Symbols</label>
+                    </div>
+
+                    <div class="option">
+                        <input type="radio" value="self-harm" name="reason" id="self-harm">
+                        <label for="self-harm">Actively promotes self-harm</label>
+                    </div>
+
+                    <div class="option">
+                        <input type="radio" value="spam" name="reason" id="spam">
+                        <label for="spam">Spam</label>
+                    </div>
+
+                    <div class="option">
+                        <input type="radio" value="other" name="reason" id="other">
+                        <label for="other">Other</label>
+                    </div>
+                            
+                </li>
+                <li class="NoCheck Hidden">
+                    <textarea wrap="virtual" onfocus="this.select()" maxlength="180" name="ReportPin" class="ClearOnFocus" id="ReportPin"></textarea>
+                    <label>Please write a little about why you want to report this pin.</label>
+                    <span class="fff"></span>
+                </li>
+            </ul>
+            <div style="display:none"><input type="hidden" value="df08312c99b2c2ef9ad6ca767654f270" name="csrfmiddlewaretoken"></div>
+            <div>
+                <button type="button" data-form="ReportModal" class="SubmitButton Button RedButton Button18 disabled">
+                    Report Pin
+                </button>
+                <a style="font-size: 13px; float: right; margin-top: 10px;" href="/about/copyright/?pin_id=128985976798264351">Is this your intellectual property?</a>
+            </div>
+        </form>
+    </div><!-- .modal.wide -->
+
+    <div class="overlay"></div>
+
+</div><!-- #EmbedModal.ModalContainer -->
+
+<div class="ModalContainer" id="ReportCommentModal">
+    <div class="modal thin">
+        <div class="header lg">
+            <a onclick="Modal.close('ReportCommentModal'); Closeup.resetReportModal(); return false" class="close" href="#"><strong>Close</strong><span></span></a>
+            <h2>Report Comment</h2>
+        </div>
+        <form class="Form FancyForm" method="post" action="#">
+        	{% csrf_token %}
+            <p id="ReportLabel">Why are you reporting this comment?</p>
+            <ul>
+                <li>
+                    <div class="option">
+                        <input type="radio" value="spam" name="reason" id="spam">
+                        <label for="spam">Spam</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" value="attacks" name="reason" id="attacks">
+                        <label for="attacks">Attacks a group or individual</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" value="hate-speech" name="reason" id="hate-speech">
+                        <label for="hate-speech">Hateful speech</label>
+                    </div>
+                    
+                    
+                    <div class="option">
+                        <input type="radio" value="other" name="reason" id="other">
+                        <label for="other">Other</label>
+                    </div>
+                    
+                </li>
+                <li class="NoCheck Hidden">
+                    <textarea wrap="virtual" onfocus="this.select()" maxlength="180" name="ReportPin" class="ClearOnFocus" id="ReportPin"></textarea>
+                    <label>Please write a little about why you want to report this comment.</label>
+                    <span class="fff"></span>
+                </li>
+            </ul>
+            <div style="display:none"><input type="hidden" value="df08312c99b2c2ef9ad6ca767654f270" name="csrfmiddlewaretoken"></div>
+            <div>
+                <button type="button" data-form="ReportCommentModal" class="SubmitButton Button RedButton Button18 disabled">
+                    Report Comment
+                </button>
+            </div>
+        </form>
+    </div><!-- .modal.wide -->
+
+    <div class="overlay"></div>
+
+</div><!-- #ReportCommentModal.ModalContainer -->
+
+<div id="PinImageHolder">
+	<a class="PinImage ImgLink" href="{{menu.menuPics}}" rel="nofollow" target="_blank">
+        {% thumbnail menu.menuPics "280x180" crop="center" as im %}
+            <img style="height: 337px; width: 600px;" class="PinImageImg" alt="wow" src="{{im.url}}">
+        {% endthumbnail %}
+    </a>
+
+    <div id="PinActionButtons">
+        <a onclick="trackGAEvent('repin_button', 'clicked', 'closeup_ajax'); RepinDialog.show('128985976798264351'); return false" class="Button Button13 WhiteButton ContrastButton RepinButton" href="/pin/128985976798264351/repin/">
+            <em></em>Repin
+        </a>
+        <a href="/pin/128985976798264351/edit/" data-id="128985976798264351" class="Button Button13 WhiteButton ContrastButton">
+            Edit
+        </a>
+    </div>
+
+</div><div id="loading"><img alt="Loading Animation" src="http://assets.pinterest.com/images/rotating_pin.png"></div>
+
+<div class="PinBottom">
+    <div id="AjaxFooter">
+        <p class="description">{{menu.menuDescription}}</p>       
+    </div><!-- #PinCaption -->
+    <div class="PinComments">
+    	{% get_comment_list for menus.menu menu.id as comment_list %}
+        {% get_comment_count for menus.menu menu.id as comment_count%}
+        {% for comment in comment_list %}       
+            <div comment-id="{{comment.id}}" class="comment" style="background-color: rgb(255, 255, 255);"> 
+                <a data="{{comment.id}}" href="/menu/{{comment.id}}/deletecomment/" title="Remove Comment" class="DeleteComment floatRight tipsyHover">X</a>
+                <a class="CommenterImage" href="/user/{{comment.username}}/">
+                    {% thumbnail comment.user.get_profile.avatar "50x50" crop="center" as im %}
+                    <img alt="Profile picture of {{comment.username}}" class="profile user_image" src="{{im.url}}">
+                    {% endthumbnail %}
+                </a>
+                <p class="CommenterMeta"><a href="/user/{{ comment.user_name }}/">{{ comment.user_name }}</a> {{ comment.comment }}</p>
+            </div>
+        {% endfor %}
+        
+    </div>
+    
+    <div id="PinAddComment">
+        <div id="PinInputArea">
+            {% get_comment_form for menu as form%}
+            <form method="POST" action="{% comment_form_target %}">
+                {% csrf_token %}
+                {% for field in form %}
+                    {% if field.is_hidden %}
+                        {{ field }}
+                    {% else %}
+                        {% if field.name != "name" and field.name != "email" and field.name != "url" and field.name != "comment" and field.name != "honeypot" %}
+                            {% if field.errors %}{{ field.errors }}{% endif %}
+                            {{ field }}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                <input type="hidden" id="pin_comment_replies" name="replies">
+                {% thumbnail actualuser.get_profile.avatar "50x50" crop="center" as im %}
+                <img alt="Picture of {{actualuser.username}}" class="CommenterImage" src="{{im.url}}">
+                {% endthumbnail %}
+                <div class="InputContainer">
+                    <textarea placeholder="Add a comment..." maxlength="1000"  id="CloseupComment" name="comment"></textarea><div class="tagmate-menu" style="position: absolute; display: none;"></div>
+                </div>
+                <div style="display: none" id="PinAddCommentControls">
+                    <p class="HelpText colorlight">Type <strong>@</strong> to recommend this pin to another Pinner</p>
+                    <button type="submit" class="Button WhiteButton Button13 disabled" disabled="true" id="PostComment">Post Comment
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="PinInfo">
+        <a target="_blank" class="Button13 Button WhiteButton" href="/huangxia/my-style/settings/">
+            Edit
+        </a>    
+        <p class="colorless">Menus in this catagory</p> <h3><a target="_blank" href="/huangxia/my-style/">{{catagory.catagoryName}}</a></h3>
+        <ul id="BoardThumbs">
+        	{% for menu in menuinsamecatagory %}
+                    {% thumbnail menu.menuPics "50x50" crop="center" as im %}
+        	    <li><a target="_blank" href="/{{user.username}}/catagory/{{menu.catagory.catagoryName}}/"><img alt="Pin Thumbnail" src="{{im.url}}"></a></li>
+                    {% endthumbnail %}
+        	{% endfor %}
+            {% for i in menuinsamecatagory|length|getrange12 %}
+                <li><img alt="Placeholder Image" src="/site_media/images/placeholder49.png"></li> 
+            {% endfor %}      
+        </ul>
+    </div>
+
+    
+    <div class="PinInfo" id="ZoomSource">
+        
+            <p class="colorless">Uploaded to SocialMenu</p>
+            <h3><a target="_blank" href="/">Uploaded Menus</a></h3>
+            <a target="_blank" class="link" href="/uploads/">
+        
+            <ul id="SourceThumbs">
+            	{% for menu in newlyuploaded %}
+                    {% thumbnail menu.menuPics "50x50" crop="center" as im %}
+            	    <li><img alt="Pin Thumbnail" src="{{im.url}}"></li>
+                    {% endthumbnail %}
+            	{% endfor %}
+                {% for i in newlyuploaded|length|getrange5 %}
+                    <li><img alt="Placeholder Image" src="/site_media/images/placeholder49.png"></li> 
+                {% endfor %} 
+            </ul>
+        </a>
+    </div>
+
+    
+    
+    
+    <div class="PinInfo" id="ZoomOrigin">
+
+        <p class="colorless">
+                
+                Originally posted by </p><h3><a target="_blank" href="/user/{{actualuser.username}}/">{{actualuser.get_profile.firstname}} {{actualuser.get_profile.lastname}}</a></h3>
+                
+        <p></p>
+        <a target="_blank" class="link" href="/user/{{actualuser.username}}/">
+            <ul id="OriginThumbs">
+            	{% for menu in originalpostedmenus %}
+                    {% thumbnail menu.menuPics "50x50" crop="center" as im %}
+            	    <li><img alt="Pin Thumbnail" src="{{im.url}}"></li>
+                    {% endthumbnail %}
+            	{% endfor %}
+                {% for i in originalpostedmenus|length|getrange5 %}
+                    <li><img alt="Placeholder Image" src="/site_media/images/placeholder49.png"></li> 
+                {% endfor %}   
+                    
+            </ul>
+        </a>
+    </div>
+
+</div>
+
+</div><div style="height: 0px; margin-top: -10px;">&nbsp;</div></div>
+</body>

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Submit Menu{% endblock %}
+
+{% block head %}Submit Menu{% endblock %}
+{% block content %}
+    <h1 id="login_logo"><a href="/"></a></h1>
+        <img class="login_bar" alt="Horizontal Rule" src="https://a248.e.akamai.net/passets.pinterest.com.s3.amazonaws.com/images/login_bar.png">
+    <form id='menuSubmitForm' class='Form FancyForm1 AuthForm' method="post" action="." enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="save" />
+    </form>
+{% endblock %}

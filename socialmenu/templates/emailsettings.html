@@ -1,0 +1,119 @@
+{% extends "profile_base.html" %}
+{% block title %}{{ username }}{% endblock %}
+{% block head %}Menus for {{ username }}{% endblock %}
+{% block external %}
+<script type="text/javascript" src="/site_media/emailsettings.js"></script>
+{% endblock %}
+{% block content %}
+{% include "user_header.html" %}
+<div class="FixedContainer">
+
+        <form accept-charset="utf-8" method="POST" action="/prefs/" class="Form StaticForm" id="profileEdit">
+        	{% csrf_token %}
+            <h3>Email Settings</h3>
+            <ul>
+                <li>
+                  <label>Email</label>
+                  <div class="Right NoInput">
+                    {{email}}&nbsp;·&nbsp;<a href="/edit_profile/{{username}}" class="user_edit">Change Email</a>
+                  </div>
+                </li>
+
+                
+                 <li>
+                    <label for="id_email_recommend">Recommend</label>
+                    {{profileForm2.emailOnRecommend.errors}}
+                    <div class="Right NoInput">
+                        <label for="id_email_recommend1">{{profileForm2.emailOnRecommend}}<div class="switch"><div class="shadow on"></div><div class="border"><div class="knob" style="margin-left: 62%;"><div class="circle"><div class="inner circle"></div></div><div class="labels"><label class="on">On</label><label class="off">Off</label></div></div></div></div> When your friend recommend you a menu</label>
+                        
+                    </div>
+                </li>
+                
+                <li>
+                    <label for="id_email_comments">Comments</label>
+                    {{profileForm2.emailOnComments.errors}}
+                    <div class="Right NoInput">
+                        <label for="id_email_comments1">{{profileForm2.emailOnComments}}<div class="switch"><div class="shadow on"></div><div class="border"><div class="knob" style="margin-left: 62%;"><div class="circle"><div class="inner circle"></div></div><div class="labels"><label class="on">On</label><label class="off">Off</label></div></div></div></div> When someone comments on your menu</label>
+                        
+                    </div>
+                </li>
+
+                
+                <li>
+                    <label for="id_email_likes">Likes</label>
+                    {{profileForm2.emailOnLikes.errors}}
+                    <div class="Right NoInput">
+                        <label for="id_email_likes1">{{profileForm2.emailOnLikes}}<div class="switch"><div class="shadow on"></div><div class="border"><div class="knob" style="margin-left: 62%;"><div class="circle"><div class="inner circle"></div></div><div class="labels"><label class="on">On</label><label class="off">Off</label></div></div></div></div> When someone likes your menu</label>
+                        
+                    </div>
+                </li>
+
+                
+                <li>
+                    <label for="id_email_takeit">take it</label>
+                    {{profileForm2.emailOnTakeIt.errors}}
+                    <div class="Right NoInput">
+                        <label for="id_email_takeit1">{{profileForm2.emailOnTakeIt}}<div class="switch"><div class="shadow on"></div><div class="border"><div class="knob" style="margin-left: 62%;"><div class="circle"><div class="inner circle"></div></div><div class="labels"><label class="on">On</label><label class="off">Off</label></div></div></div></div> When your menu is taken by your friend</label>
+                        
+                    </div>
+                </li>
+
+                
+                <li>
+                    <label for="id_email_follows">Follows</label>
+                    {{profileForm2.emailOnFollows.errors}}
+                    <div class="Right NoInput">
+                      <label for="id_email_follows">{{profileForm2.emailOnFollows}}<div class="switch"><div class="shadow on"></div><div class="border"><div class="knob" style="margin-left: 62%;"><div class="circle"><div class="inner circle"></div></div><div class="labels"><label class="on">On</label><label class="off">Off</label></div></div></div></div> When a new person follows you</label>
+                        
+                    </div>
+                </li>
+
+                
+                <li>
+                    <label for="id_email_interval_0">Frequency</label>
+                    {{profileForm2.emailFrequency.errors}}
+                    <div style="padding-bottom: 0;" class="Right NoInput">
+                        <label style="padding-bottom: 0;" id="radio">
+                            <span style="display: block; margin-bottom: 8px;">How often you receive emails about likes, takeit, &amp; follows:</span>
+                            <ul>
+                                {{profileForm2.emailFrequency}}
+                            </ul>
+                        </label>
+                        
+                    </div>
+                </li>
+
+                
+                <li>
+                    <label for="id_email_digest">Digest</label>
+                    {{profileForm2.emailDigest.errors}}
+                    <div class="Right NoInput">
+                        <label for="id_email_digest1">{{profileForm2.emailDigest}}<div class="switch"><div class="shadow on"></div><div class="border"><div class="knob" style="margin-left: 62%;"><div class="circle"><div class="inner circle"></div></div><div class="labels"><label class="on">On</label><label class="off">Off</label></div></div></div></div> Emails summarizing your weekly activity</label>
+                        
+                    </div>
+                </li>
+
+                
+                <li>
+                    <label for="id_email_news">News</label>
+                    {{profileForm2.emailNewsUpdates.errors}}
+                    <div class="Right NoInput">
+                        <label for="id_email_news1">{{profileForm2.emailNewsUpdates}}<div class="switch"><div class="shadow on"></div><div class="border"><div class="knob" style="margin-left: 62%;"><div class="circle"><div class="inner circle"></div></div><div class="labels"><label class="on">On</label><label class="off">Off</label></div></div></div></div> Occasional socialmenu news and updates</label>
+                        
+                    </div>
+                </li>
+
+                
+            </ul>
+
+            
+            <!-- Button -->
+            <div class="Submit">
+                <button type="submit" class="Button RedButton Button24">Save Settings</button>
+                
+            </div>
+
+        </form>
+
+    </div>
+{% endblock %}

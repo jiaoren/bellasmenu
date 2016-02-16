@@ -1,0 +1,52 @@
+<script type="text/javascript" src="/site_media/profile_follow_unfollow.js"></script>
+{% load friendshiptags %}
+{% load getrange %}
+{% load thumbnail %}
+<div class="FixedContainer">
+	<div id="PeopleList">
+	    {% for follower,menus in followermenus.items %}
+	        {% followingcount follower as followingnum%}
+            {% followerscount follower as followernum%}
+	        <div class="{% if forloop.counter|divisibleby:2 %}person{% else %}person odd{% endif %}">
+                    {% thumbnail follower.get_profile.avatar "180x240" crop="center" as im %}
+	            <a style="background-image: url({{im.url}})" class="PersonImage ImgLink" href="/user/{{follower.username}}/"></a>
+                    {% endthumbnail %}
+                <div class="PersonFollow">
+                	{% if follower in requestuser_all_followings %}
+                        <a action="{{follower.username}}" data-text-unfollow="Unfollow" data-text-follow="Follow" class="Button Button13 WhiteButton disabled clickable unfollowuserbutton">
+                            Unfollow
+                        </a>
+                    {% else %}
+                        <a action="{{follower.username}}" data-text-unfollow="Unfollow" data-text-follow="Follow" class="Button Button13 WhiteButton clickable followuserbutton">
+                            Follow
+                        </a>
+                    {% endif %}
+	            </div>
+	            <div class="PersonInfo">
+                    <h4><a href="/user/{{follower.username}}/">{{follower.get_profile.firstname}} {{follower.get_profile.lastname}}</a></h4>
+                    <div class="stats">
+                        <a href="/user/{{follower.username}}/followers">
+                            {{followernum}} Followers
+                        </a> ·
+                        <a href="/{{follower.username}}/following">
+                            {{followingnum}} Following
+                        </a>
+                    </div>
+                    <div class="icons">
+                    </div>
+                </div>
+            
+            <div class="PersonPins">
+            	{% for menu in menus %}
+                    {% thumbnail menu.menuPics "75x75" crop="center" as im %}
+            	    <a class="ImgLink" href="/menu/{{menu.id}}/"><img alt="{{menu.id}}" src="{{im.url}}"></a>
+                    {% endthumbnail %}
+            	{% endfor %}
+            	{% for i in menus|length|getrange %}
+            	    <span class="empty"></span>  
+            	{% endfor %}
+                
+            </div>
+        </div>
+    	{% endfor %}
+    </div>

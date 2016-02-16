@@ -1,0 +1,18 @@
+{% extends "profile_base.html" %}
+{% block title %}{{ username }}{% endblock %}
+{% block head %}Menus for {{ username }}{% endblock %}
+{% block content %}
+    {% include "user_header.html" %}
+    {% include "profile_header.html" %}
+    {% include "context_bar.html" %}
+    {% if subpage == "followers" %}
+        {% include "followers.html" %}
+    {% elif subpage == "following" %}
+        {% include "following.html" %}
+    {% elif subpage == "menus" %}
+        {% include "wrapper.html" %}
+    {% elif subpage == "likes" %}
+        {% include "wrapper.html" %}
+    {% endif %}
+    
+{% endblock %}

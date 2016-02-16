@@ -1,0 +1,192 @@
+{% extends "profile_base.html" %}
+{% block title %}{{ username }}{% endblock %}
+{% block head %}Menus for {{ username }}{% endblock %}
+{% block external %}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/mootools/1.4.1/mootools-yui-compressed.js"></script>
+<script type="text/javascript" src="/site_media/FancySelect.js"></script>
+<link type="text/css" href="/site_media/FancySelect.css" rel="stylesheet">
+<script type="text/javascript" src="/site_media/editprofile.js"></script>
+{% endblock %}
+{% block content %}
+    
+    {% include "user_header.html" %}
+    {% load thumbnail %}    
+    {{ form.non_field_errors }}
+    <div class="FixedContainer">
+        <form name="profileEdit" accept-charset="utf-8" enctype="multipart/form-data" method="post" action="/edit_profile/hxia/" class="Form StaticForm" id="profileEdit">
+            {% csrf_token %}
+            <h3>Edit Profile</h3>
+          
+            <ul>
+            	<!-- Email -->
+                <li>
+                    <label for="id_email">Email</label>
+                    <div class="Right">
+                        {{ userEmailForm.email.errors }}
+                    	{{userEmailForm.email}}
+                        <span class="help_text">Not shown publicly</span>  
+                    </div>
+                </li>
+                
+                <!-- Notifications -->
+                <li>
+                    <label>Notifications</label>
+                    <div class="Right">
+                        <a class="Button WhiteButton Button18" href="/prefs/">Change Email Settings</a>
+                    </div>
+                </li>
+                
+                <!-- Password -->
+                <li>
+                <label>Password</label>
+                    <div class="Right">
+                        <a class="Button WhiteButton Button18" href="/password/change/">Change Password</a>
+                    </div>
+                </li>
+                
+                <!-- Language -->
+               <li>
+                    <label for="id_language">Language</label>
+                    <div class="Right">
+                    	{{ profileForm1.language.errors }}
+                    	{{profileForm1.language}}
+                    </div>
+                </li>
+                
+                <!-- First Name -->
+                <li>
+                    <label for="id_first_name">First Name</label>
+                    <div class="Right">
+                    	{{ profileForm1.firstname.errors }}
+                    	{{ profileForm1.firstname }}
+                    </div>
+                </li>
+
+                <!-- Last Name -->
+                <li>
+                    <label for="id_last_name">Last Name</label>
+                    <div class="Right">
+                    	{{ profileForm1.lastname.errors }}
+                        {{profileForm1.lastname}}
+                    </div>
+                </li>
+
+                <!-- Username -->
+                <li>
+                    <label for="id_username">Username</label>
+                    <div class="Right">
+                        {{ usernameForm.username.errors }}
+                        {{usernameForm.username}}
+                        <span class="help_text username_available">http://socialmenu.com/username</span>
+                        
+                    </div>
+                </li>
+                
+                <!-- Gender -->
+                <li>
+                    <label for="id_gender_0">Gender</label>
+                    <div id="genderOptions" class="Right">
+                    	{{ profileForm1.gender.errors }}
+                        {{profileForm1.gender}}
+                    </div>
+                </li>
+                
+                <!-- About -->
+                <li>
+                    <label for="id_about">About</label>
+                    <div class="Right">
+                         {{ profileForm1.about.errors }}
+                         {{profileForm1.about}}
+                        <div id="aboutCount" class="CharacterCount"></div>
+                        
+                    </div>
+                </li>
+                
+                <li>
+                    <label for="id_location">Location</label>
+                    <div class="Right">
+                        {{ profileForm1.location.errors }}
+                        {{profileForm1.location}}
+                        <span class="help_text">e.g. San Jose, CA</span>
+                        
+                    </div>
+                </li>
+                
+                
+                <!-- Image -->
+                <li>
+                    <label for="id_img">Image</label>
+                    <div class="Right">
+                        
+                        <div class="current_avatar_wrapper">
+                          <img src="https://s-passets-ec.pinimg.com/images/load2.gif" class="spinner" alt="Loading..." style="display: none;">
+                          {% thumbnail profile.avatar "180x239" crop="center" as im %}
+                          <img alt="Current profile picture" class="current_avatar floatLeft" src="{{im.url}}">
+                          {% endthumbnail %}
+                        </div>
+
+                        <div style="padding-left: 12px;" class="floatLeft NoInput">
+                        	{{profileForm1.avatar.errors}}
+                            <p><button type="button" class="Button WhiteButton Button18 change_avatar">Upload an Image</button>{{profileForm1.avatar}}</p>
+                            <p><button type="button" data="facebook" class="Button WhiteButton Button18 link_account refresh_user_image"> Refresh from Facebook</button></p>
+                            
+                        </div>
+                    </div>
+                </li>
+                
+                <!-- Facebook -->
+                <li class="NoInput">
+                <label>Facebook</label>
+                    <div class="Right NoInput">
+                        <label for="facebook_connect" class="large" id="slider_fb">
+                            {{profileForm1.loginwithfb}}<div class="switch"><div class="shadow on"></div><div class="border"><div class="knob" style="margin-left: 62%;"><div class="circle"><div class="inner circle"></div></div><div class="labels"><label class="on">On</label><label class="off">Off</label></div></div></div></div>Login with Facebook
+                        </label>
+                        
+                            <label for="facebook_timeline" class="large">
+                                {{profileForm1.posttofbtimeline}}<div class="switch"><div class="shadow on"></div><div class="border"><div class="knob" style="margin-left: 62%;"><div class="circle"><div class="inner circle"></div></div><div class="labels"><label class="on">On</label><label class="off">Off</label></div></div></div></div>Publish activity to Facebook Timeline
+                            </label>
+                            <p id="find_facebook_friends"><a class="Button WhiteButton Button18 link_account" href="/invites/facebook/">Find Facebook Friends on Pinterest</a></p>
+                        
+                    </div>
+                </li>
+
+                <!-- Twitter -->
+                <li class="NoInput">
+                  <label>Twitter</label>
+                    <div class="Right NoInput">
+                        <label for="twitter_connect" class="large">
+                            {{profileForm1.loginwithtwitter}}<div class="switch"><div class="shadow"></div><div class="border"><div class="knob" style="margin-left: 0%;"><div class="circle"><div class="inner circle"></div></div><div class="labels"><label class="on">On</label><label class="off">Off</label></div></div></div></div> Login with Twitter
+                        </label>
+            
+                    </div>
+                </li>
+
+
+                <!-- Deactivate -->
+                <li class="Deactivate">
+                <label>Deactivate</label>
+                    <div class="Right">
+                        <a name="deactivate_user_account" class="Button WhiteButton Button18" id="deactivate_user_account"  style="display: inline-block;"><strong>Deactivate Account</strong><span></span></a>
+                        <div class="ConfirmForm" id="DeactivateForm" style="display: none;"  method="post" action="/delete/">
+                            <p>We're so sorry it's come to this!</p> <p>If you deactivate this account, your profile and pins will no longer be available on Pinterest. Links to Facebook or Twitter accounts will also be removed.</p> <p>You should only deactivate your account if you will no longer use Pinterest. Deactivation will not free up your username or email address for use on another SocialMenu account. If you want to continue using SocialMenu, make changes to the settings on this page instead of deactivating.</p> <p>If you want to deactivate your account, please click the checkbox below:</p>
+                          <div id="DeactivateDecision">
+                          	
+                          	<input type="checkbox" id="enable_button">
+                          	<label for="enable_button">Yes, I want to deactivate my account.</label>               
+                          </div>
+
+                          <a disabled="disabled" name="deactivate_user_account_confirm" class="Button RedButton DeleteButton Button18  disabled" id="deactivate_user_account_confirm" href="/delete/" disabled="disabled"><strong>Deactivate My Account</strong><span></span></a>
+                          <a class="ChangeOfHeart" id="ChangeOfHeart" href="javascript:void(0)">I've changed my mind!</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <!-- Button -->
+            <div class="Submit">
+                <button type="submit" class="Button RedButton Button24 userform_submit editpage_submit">Save Profile</button>
+            </div>
+            
+
+
+{% endblock %}

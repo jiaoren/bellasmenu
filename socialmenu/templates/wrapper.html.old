@@ -1,0 +1,119 @@
+{% load modeandmultiply %}
+{% load divide %}
+{% load comments %}
+<script type="text/javascript" src="/site_media/jquery.js"></script>
+<script type="text/javascript" src="/site_media/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="/site_media/search.js"></script>
+<link rel="stylesheet" href="/site_media/jquery.autocomplete.css" type="text/css" />
+<script type="text/javascript" src="/site_media/jquery.bgiframe.min.js"> </script>
+<script type="text/javascript" src="/site_media/jquery.autocomplete.js"> </script>
+<script type="text/javascript" src="/site_media/tag_autocomplete.js"> </script>
+<script type="text/javascript" src="/site_media/wrapper.js"></script>
+<script src="/site_media/endless.js" type="text/javascript" charset="utf-8"></script>
+<script src="/site_media/endless_on_scroll.js" type="text/javascript" charset="utf-8"></script>
+
+
+<div id="wrapper" class="BoardLayout" style="width: 1422px; opacity: 1; visibility: visible;">
+	<div id="ColumnContainer">
+		{% load endless %}
+		{% lazy_paginate menus %}
+		{%if menus%}
+                    {% for menu in menus %}
+		        <div class="pin" >
+		        	
+			        <div class="PinHolder">
+				        <div class="actions">
+
+                            <a href="/menu/takeit/" data-id="{{menu.id}}" class="Button Button11 WhiteButton ContrastButton repin_link">
+                            <em></em>Takeit
+                            </a>
+                            {% if menu in likedMenus %}
+                                <a href="#" data-text-unlike="Unlike" data-text-like="Like" data-id="{{menu.id}}" class="Button WhiteButton ContrastButton Button11 likebutton">
+                                Unlike
+                                </a>
+                            {% else %}
+                                <a href="#" data-text-unlike="Unlike" data-text-like="Like" data-id="{{menu.id}}" class="Button WhiteButton ContrastButton Button11 likebutton">
+                                <em></em>Like
+                                </a>
+                            {% endif %}
+                            <a  id="commentpin" thref="#" data-id="{{menu.id}}" class="Button Button11 WhiteButton ContrastButton comment">
+                            <em></em>Comment
+                            </a>
+        
+				        </div>
+		        <a class="PinImage ImgLink" data-menu-id={{menu.id}}  href="{{menu.menuPics}}"><img class="PinImageImg" style="height: 247px;" alt="{{menu.menuName}}" src="{{menu.menuPics}}"></a>
+			        </div>
+			         <p class="description">
+					        {{ menu.menuDescription}}
+				     </p>
+				     <p class="stats colorless">
+                                         {% with menu.likedmenu_set.all|first as likedm %}
+				     	     {% if likedm %}
+				     	         {% if likedm.likes == 1 %}
+				     	             <span class="LikesCount">1 like</span>
+				     	         {% else %}
+				     	             <span class="LikesCount">{{likedm.likes}} likes</span>
+				     	         {% endif %}
+                             {% else %}
+                                 <span class="LikesCount">0 like</span>
+                             {% endif %}
+                         {% endwith %}  
+                         <span class="CommentsCount hidden"></span>
+                         <span class="RepinsCount">1 takeit</span>    
+                     </p>
+                     <div class="comments colormuted">
+                     	 {% get_comment_list for menus.menu menu.id as comment_list %}
+                     	 {% get_comment_count for menus.menu menu.id as comment_count%}
+                     	 {% if comment_count <= 5 %}   
+                     	     {% for comment in comment_list %}       
+                                 <div comment-id="{{comment.id}}" class="comment convo clearfix"> 
+                                     <a class="ImgLink" href="/user/{{comment.username}}/">
+                                         <img alt="Profile picture of {{comment.username}}" class="profile user_image" src="{{comment.user.get_profile.avatar}}">
+                                     </a>
+                                     <p><a href="/user/{{ comment.user_name }}/">{{ comment.user_name }}</a> {{ comment.comment }}</p>
+                                 </div>
+                             {% endfor %}
+                         {% else %}
+                             {% for comment in comment_list|slice:":5" %}       
+                                 <div comment-id="{{comment.id}}" class="comment convo clearfix"> 
+                                     <a class="ImgLink" href="user/{{comment.username}}/">
+                                         <img alt="Profile picture of {{comment.username}}" class="profile user_image" src="{{comment.user.get_profile.avatar}}">
+                                     </a>
+                                     <p><a href="/user/{{ comment.user_name }}/">{{ comment.user_name }}</a> {{ comment.comment }}</p>
+                                 </div>
+                             {% endfor %}
+                             <a class="all comment convo clearfix" href="/menu/{{menu.id}}/">All {{comment_count}} Comments…</a>
+                         {% endif %}   
+                      </div>
+                      <div id="commentarea" class="write convo clearfix" style="display:none;">
+                          <a class="ImgLink" href="/user/{{actualuser.username}}/">
+                              <img alt="Profile picture of you" src="{{actualuser.get_profile.avatar}}">
+                          </a>
+                          {% get_comment_form for menu as form%}
+                          <form method="POST" action="{% comment_form_target %}">
+                          	{% csrf_token %}
+                          	  {% for field in form %}
+                                  {% if field.is_hidden %}
+                                      {{ field }}
+                                  {% else %}
+                                      {% if field.name != "name" and field.name != "email" and field.name != "url" and field.name != "comment" and field.name != "honeypot" %}
+                                          {% if field.errors %}{{ field.errors }}{% endif %}
+                                              {{ field }}
+                                          {% endif %}
+                                  {% endif %}
+                              {% endfor %}
+                              <input type="hidden" class="pin_comment_replies" name="replies">
+                              <input type="hidden" class="usercommented" value="{{username}}">
+                              <textarea placeholder="Add a comment..." maxlength="1000" class="GridComment" name="comment"></textarea>
+                              <button id="commentbutton" type="submit" class="Button WhiteButton Button11 grid_comment_button">Comment</button>
+                          </form>
+                      </div>
+		          </div>
+		     {% endfor %}
+		     {% show_more %}
+		{% else %}
+		    <h1>No menus for you</h1>
+		{% endif %}
+		<button id="ScrollToTop" class="Button WhiteButton Indicator Offscreen" type="button"> Scroll to Top </button>
+	</div>
+</div>

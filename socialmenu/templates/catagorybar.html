@@ -1,0 +1,47 @@
+<div id="CategoriesBar">
+	    <ul class="LiquidContainer HeaderContainer" style="width: 1644px;">
+		    <li class="submenu">
+			    <a class="nav" href="#">Catagories<span></span></a>&nbsp;·
+			    <ul id="CategoriesDropdown">
+				    <li>
+					    <span class="SubmenuColumn"> <a href="/all/?category=American">American</a> <a href="/all/?category=Chinese">Chinese</a> <a href="/all/?category=Mexcico">Mexcico</a> <a href="/all/?category=Japanese">Japanese</a> <a href="/all/?category=Korean">Korean</a> <a href="/all/?category=Other">Other</a> </span>
+				    </li>
+			    </ul>
+		    </li>
+		    <!--<li><a href="/mobilepins/" class="nav">Mobile</a>&nbsp;&middot;</li>-->
+		    {% if requestuser %}
+		        <li>
+			        <a class="nav" href="/">Following</a>&nbsp;·
+		        </li>
+		    {% endif %}
+		    <li>
+			    <a class="nav" href="/all/">Everything</a>&nbsp;·
+		    </li>
+		    <li>
+			    <a class="nav" href="/popular/">Popular</a>&nbsp;·
+		    </li>
+		    <li class="submenu">
+			    <a class="nav" href="#">Price<span></span></a>
+			    <ul>
+				    <li>
+					    <a href="/all/?price_start=1&amp;price_end=10">$1-10</a>
+				    </li>
+				    <li>
+					    <a href="/all/?price_start=10&amp;price_end=20">$10-20</a>
+				    </li>
+				    <li>
+					    <a href="/all/?price_start=20&amp;price_end=30">$20-30</a>
+				    </li>
+				    <li>
+					    <a href="/all/?price_start=30&amp;price_end=40">$30-40</a>
+				    </li>
+				    <li>
+					    <a href="/all/?price_start=40&amp;price_end=50">$40-50</a>
+				    </li>
+				    <li>
+					    <a href="/all/?price_start=50&amp;price_end=1000">$50+</a>
+				    </li>
+			    </ul>
+		    </li>
+	    </ul>
+    </div>

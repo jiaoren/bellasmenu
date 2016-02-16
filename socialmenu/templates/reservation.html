@@ -1,0 +1,9 @@
+{% extends "profile_base.html" %}
+{% block title %}{{ username }}{% endblock %}
+{% block head %}Menus for {{ username }}{% endblock %}
+{% block content %}
+    {% include "user_header.html" %}
+    {% include "restaurant_search.html" %}
+    {% include "search_filter.html" %}
+    {% include "wrapper.html" %}
+{% endblock %}

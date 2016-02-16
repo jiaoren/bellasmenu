@@ -1,0 +1,57 @@
+<script type="text/javascript" src="/site_media/edit_about.js"></script>
+{% load thumbnail %}
+<div id="ProfileHeader">
+        <div class="FixedContainer row clearfix">
+            <div class="info">
+                <a target="_blank" class="ProfileImage" href="http://media-cache1.pinterest.com/avatars/huangxia_1339038449_600.jpg">
+                    {% thumbnail profile.avatar "180x239" crop="center" as im%}
+                        <img alt="Profile Picture of {{profile.firestname}} {{profile.lastname}}" src="{{im.url}}">
+                    {% endthumbnail %}
+                </a>
+                <div class="content">
+                    <h1>{{username}}</h1>
+                        
+                        {% if user.get_profile.about %}
+                            <p class="colormuted">{{user.get_profile.about}}</p>
+                        {% else %}
+                            <p class="colorless noDescription"><em>You have no description right now. Write a little bit about yourself!</em><img src="http://passets-ec.pinterest.com/images/ProfileEditIcon.png"></p>
+                            <div id="editDescription" class="Form">
+                                <textarea></textarea>
+                                <button id="submitedit" class="Button11 Button2 RedButton editDescription disabled" type="button">Save Description</button>
+                                <div class="CharacterCount"></div>
+                            </div>
+                        {% endif %}
+                        
+               
+                    <ul class="icons" id="ProfileLinks">
+                
+                            <li>
+                                <a target="_blank" class="icon facebook" href="http://facebook.com/profile.php?id=751822098"></a>
+                            </li>
+                  
+                            <li>
+                                <ul class="addIcons Existing">
+                                        <li>
+                                            <a href="#" class="Button Button11 WhiteButton addWebsite">
+                                                <strong><img src="http://passets-ec.pinterest.com/images/LinkNag-Website.png"></strong>
+                                                <span></span>
+                                            </a>
+                                        </li>                                
+                                        <li>
+                                            <a href="#" class="Button Button11 WhiteButton addLocation">
+                                                <strong><img src="http://passets-ec.pinterest.com/images/LinkNag-Location.png"></strong>
+                                                <span></span>
+                                            </a>
+                                        </li>
+                                    
+                                </ul>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+
+            
+            
+        </div>
+    </div>

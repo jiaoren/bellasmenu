@@ -1,0 +1,6 @@
+<div comment-id="{{comment.id}}" class="comment convo clearfix"> 
+    <a class="ImgLink" href="/user/{{comment.user_name}}/">
+         <img alt="Profile picture of {{ comment.user_name }}" class="profile user_image" src="{{comment.user.get_profile.avatar}}">
+    </a>
+    <p><a href="/user/{{ comment.user_name }}/">{{ comment.user_name }}</a> {{ comment.comment }}</p>
+</div> 

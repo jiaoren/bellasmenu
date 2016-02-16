@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Welcome to Social Menus{% endblock %}
+{% block head %}Welcome to Social Menus{% endblock %}
+{% block content %}
+    <h1 id="login_logo"><a href="/"></a></h1>
+    <div class="social_buttons">
+        <div class="inset">
+            <a href="{% url socialauth_begin 'facebook' %}" class="fb login_button">
+                <div class="logo_wrapper"><span class="logo"></span></div>
+                <span>Login with Facebook</span>
+            </a>
+        </div>
+        <div class="inset">
+            <a href="{% url socialauth_begin 'twitter' %}" class="tw login_button">
+                <div class="logo_wrapper"><span class="logo"></span></div>
+                <span>Login with Twitter</span>
+            </a>
+        </div>
+    </div>
+    
+    <img class="login_bar" alt="Horizontal Rule" src="https://a248.e.akamai.net/passets.pinterest.com.s3.amazonaws.com/images/login_bar.png">
+    
+    {% if form.has_errors %}
+      <p>Your username and password didn't match.
+        Please try again.</p>
+    {% endif %}
+    <form id="AuthForm" class="Form FancyForm AuthForm" method="post" action=".">
+      {% csrf_token %}
+      <li>
+          {{ form.username}}
+          <label>User Name</label>
+          <span class="fff"></span>
+      </li>
+     
+      <li>
+          {{ form.password}}
+          <label>Password</label>
+          <span class="fff"></span>
+      </li>
+      <input type="hidden" name="next" value="/" />
+      <input class="Button2 WhiteButton Button18" type="submit" value="login" />
+      <a id="register" class="colorless" href="/register">Sign Up!!</a>
+    </form>
+{% endblock %}

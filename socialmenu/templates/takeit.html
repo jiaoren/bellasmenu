@@ -1,0 +1,93 @@
+<script type="text/javascript" src="/site_media/takeit.js"></script>
+{% load thumbnail %}
+<div class="ModalContainer visible" id="Repin" style="display: block;">
+    <div class="modal wide PostSetup" style="margin-bottom: -141px;">
+        <div class="header lg">
+            <a class="close" href="#"><strong>Close</strong><span></span></a>
+            <h2>Take It</h2>
+        </div>
+
+        <div class="ImagePicker">
+            <img alt="Loading Indicator" class="load" src="http://passets-ec.pinterest.com/images/load2.gif">
+            <div class="Images pin">
+                <div class="price"></div>
+                {% thumbnail menu.menuPics "200x150" crop="center" as im %}
+                <img src="{{im.url}}">
+                {% endthumbnail %}
+            </div>
+                <div class="Arrows">
+                    <a class="imagePickerNext picker" href="#">
+                        Next →<span class="imagePickerNextArrow"></span>
+                    </a>
+                    <a class="imagePickerPrevious picker" href="#">
+                        ← Prev<span class="imagePickerPreviousArrow"></span>
+                    </a>
+                </div>
+            </div>
+
+           <div class="PinForm">
+               <div class="BoardListOverlay" style="display: none;"></div>
+               <div id="boardpicker" class="BoardSelector BoardPicker">
+                   <div class="current">
+                       <span class="CurrentBoard">{{menu.catagory.catagoryName}}</span>
+                       <span class="DownArrow"></span>
+                   </div>
+                   <div class="BoardList" style="display: none;">
+                       <div class="wrapper">
+                           <ul>
+                       	       {% for catagory in catagories %}
+                       	           <li data="{{catagory.id}}">
+                                       <span>{{catagory.catagoryName}}</span>
+                                   </li>
+                       	       {% endfor %}
+                           </ul>
+                       </div>
+                   </div>
+               </div>
+
+               <div class="InputArea">
+                   <ul class="Form FancyForm">
+                       <li class="noMarginBottom val">
+                           <textarea name="caption" rows="2" data-text-error-empty="Please enter a description." class="DescriptionTextarea">{{menu.menuDescription}}</textarea><div class="tagmate-menu" style="position: absolute; display: none;"></div>
+                           <label>Describe your menu…</label>
+                           <span class="fff"></span>
+                       </li>
+                   </ul>
+                   <p class="CharacterHelp">Type <strong>@</strong> to mention people, <strong>$</strong> or <strong>£</strong> to add price.</p>
+               </div>
+
+               <div class="Buttons">
+                   <button type="button" data-text-pinning="Pinning…"  data-text-pin-it="Pin It" class="Button Button18 RedButton">Take It</button>
+                   <span class="CharacterCount colorless">359</span>
+                   <script type="text/javascript">
+                        $(function() {
+                            $("#publish_to_facebook").click(function() {
+                                Facebook.startFacebookConnect('publish_stream', false, false);
+                            });
+                        });
+                    </script>
+                
+                    <label class="facebook colorless">
+                        <input type="checkbox" class="publish_to_facebook" name="publish_to_facebook" id="publish_to_facebook">
+                        <span>Facebook</span>
+                    </label>
+               </div>
+           </div>
+
+           <form method="post" id="repinform" action="">
+           	   
+               <input type="hidden" value="{{menu.catagoryName}}" id="takeit_catagory" name="catagory">
+               <input type="hidden" id="takeit_menu_id" name="takeit_menu_id" value="{{menu.id}}">
+               <input type="hidden" id="repin_tags" name="tags" value="">
+               <input type="hidden" id="repin_comment_replies" name="replies" value="">
+               <input type="hidden" id="details" value="" name="details">
+               <input type="hidden" id="repin_currency_holder" name="buyable" value="">
+               <input type="checkbox" id="id_publish_to_facebook" name="publish_to_facebook">
+               
+           </form>
+
+       </div><!-- .modal.wide.PostSetup -->
+
+       {% include "posttakeit.html" %}      
+   <div class="overlay"></div>
+</div>

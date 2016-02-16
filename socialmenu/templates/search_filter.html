@@ -1,0 +1,66 @@
+<script type="text/javascript" src="/site_media/follow_unfollow.js"></script>
+{% if username %}
+{% load friendshiptags %}
+{% followingcount actualuser as followingnum%}
+{% followerscount actualuser as followernum%}
+{% endif %}
+<div class="container sticky" id="ContextBar">
+    <div class="FixedContainer">
+        <ul class="links"> 
+          <li>
+          	  <a href="#">
+              <strong>Filters:</strong>
+              </a>
+          </li>  
+          <li>
+              <a class="selected" href="#">
+              <strong>Star</strong> 
+              </a>
+          </li>    
+          <li>
+            <a href="#">
+                <strong>Price</strong>
+            </a>
+          </li>    
+          <li>
+              <a href="#">
+                  <strong>Review</strong> 
+              </a>
+          </li>    
+          <li>
+              <a href="#">
+                  <strong>Likes</strong> 
+              </a>
+          </li>
+          <li>
+              <a href="#">
+                  <strong>Distance</strong> 
+              </a>
+          </li>
+          <li>
+              <a href="#">
+                  <strong>Deals</strong> 
+              </a>
+          </li>
+          <li>
+              <a href="#">
+                  <strong>Catagories</strong> 
+              </a>
+          </li>
+          <li>
+              <a href="#">
+                  <strong>Open Now</strong> 
+              </a>
+          </li>
+          <li>
+              <a href="#">
+                  <strong>Delivery</strong> 
+              </a>
+          </li>
+
+      </ul>
+      
+      
+      </div>      
+  </div>
+</div>

@@ -1,0 +1,121 @@
+{% load thumbnail %}
+<div class="BoardLayout" id="wrapper" style="width: 1170px; opacity: 1; visibility: visible;">
+    <div id="ColumnContainer">
+        <div id="SortableButtons">
+            <h2 class="colorless" style="opacity: 0;">Rearrange Boards</h2>
+            <h3 class="colorless" style="opacity: 0;">Drag around your boards to reorder them.</h3>
+        </div>
+        {% if catagoryandmenu %}
+            <ul class="sortable">
+        	    {% for catagory,submenus in catagoryandmenu.items %}
+        	        <li>     	
+        	  	        <div id="menu1" class="pin pinBoard">
+        	  		        <h3 class="serif"><a href="/{{username}}/catagory/{{catagory}}/">{{ catagory }}</a></h3>
+        	  		        <h4>{{submenus|length}} menus</h4>
+        	  		        <div class="board">
+                                <a class="link" href="/{{username}}/catagory/{{catagory}}/">&nbsp;</a>
+                                <div class="holder">
+                                	{% if submenus|length >= 5 %}
+                                         <span class="cover">
+                                        {% thumbnail submenus.0.menuPics "222x333" crop="center" as im %}
+                                            <img onerror="this.src = this.src.replace('_222.jpg', '_b.jpg'); this.onerror = null; return false;" onload="this.style.opacity=1" style="opacity: 1;" src="{{im.url}}">
+                                        {% endthumbnail %}
+                                        </span>
+                                        <span class="thumbs">
+                                            {% thumbnail submenus.1.menuPics "75x75" as im %}
+                                                <img alt="Photo of a pin" src="{{im.url}}">
+                                            {% endthumbnail %}
+                                            {% thumbnail submenus.2.menuPics "75x75" as im %}
+                                                <img alt="Photo of a pin" src="{{im.url}}">
+                                            {% endthumbnail %}
+                                            {% thumbnail submenus.3.menuPics "75x75" as im %}
+                                                <img alt="Photo of a pin" src="{{im.url}}">
+                                            {% endthumbnail %}
+                                            {% thumbnail submenus.4.menuPics "75x75" as im %}
+                                                <img alt="Photo of a pin" src="{{im.url}}">
+                                            {% endthumbnail %}
+                                        </span>
+                                    {% elif submenus|length == 4 %}
+                            	        <span class="cover">
+                                            {% thumbnail submenus.0.menuPics "222x333" crop="center" as im %}
+                                            <img onerror="this.src = this.src.replace('_222.jpg', '_b.jpg'); this.onerror = null; return false;" onload="this.style.opacity=1" style="opacity: 1;" src="{{im.url}}">
+                                            {% endthumbnail %}
+                                        </span>
+                                        <span class="thumbs">
+                                            {% thumbnail submenus.1.menuPics "75x75" as im %} 
+                                            <img alt="Photo of a pin" src="{{im.url}}">
+                                            {% endthumbnail %}
+                                            {% thumbnail submenus.2.menuPics "75x75" as im %}
+                                            <img alt="Photo of a pin" src="{{im.url}}">
+                                            {% endthumbnail %}
+                                            {% thumbnail submenus.3.menuPics "75x75" as im %}
+                                            <img alt="Photo of a pin" src="{{im.url}}">
+                                            {% endthumbnail %}
+                                            <span class="empty"></span>
+                                        </span>
+                            	    {% elif submenus|length == 3 %}
+                            	        <span class="cover">
+                                            {% thumbnail submenus.0.menuPics "222x333" as im %}
+                                            <img onerror="this.src = this.src.replace('_222.jpg', '_b.jpg'); this.onerror = null; return false;" onload="this.style.opacity=1" style="opacity: 1;" src="{{im.url}}">
+                                            {% endthumbnail %}
+                                        </span>
+                                        <span class="thumbs">
+                                            {% thumbnail submenus.1.menuPics "75x75" as im %}
+                                            <img alt="Photo of a pin" src="{{im.url}}">
+                                            {% endthumbnail %}
+                                            {% thumbnail submenus.2.menuPics "75x75" as im %}
+                                            <img alt="Photo of a pin" src="{{im.url}}">
+                                            {% endthumbnail %}
+                                            <span class="empty"></span>
+                                            <span class="empty"></span>
+                                        </span>
+                            	     {% elif submenus|length == 2 %}
+                            	        <span class="cover">
+                                            {% thumbnail submenus.0.menuPics "222x333" as im %}
+                                            <img onerror="this.src = this.src.replace('_222.jpg', '_b.jpg'); this.onerror = null; return false;" onload="this.style.opacity=1" style="opacity: 1;" src="{{im.url}}">
+                                            {% endthumbnail %}
+                                        </span>
+                                        <span class="thumbs">
+                                            {% thumbnail submenus.1.menuPics "75x75" as im %}
+                                            <img alt="Photo of a pin" src="{{im.url}}">
+                                            {% endthumbnail %}
+                                            <span class="empty"></span>
+                                            <span class="empty"></span>
+                                            <span class="empty"></span>
+                                        </span>
+                                     {% elif submenus|length == 1 %}
+                            	        <span class="cover">
+                                            {% thumbnail submenus.0.menuPics "222x333" as im %}
+                                            <img onerror="this.src = this.src.replace('_222.jpg', '_b.jpg'); this.onerror = null; return false;" onload="this.style.opacity=1" style="opacity: 1;" src="{{im.url}}">
+                                            {% endthumbnail %}
+                                        </span>
+                                        <span class="thumbs">
+                                            <span class="empty"></span>
+                                            <span class="empty"></span>
+                                            <span class="empty"></span>
+                                            <span class="empty"></span>
+                                        </span>
+                                      {% elif submenus|length == 0 %}    	        
+                                        <span class="cover empty"></span>     
+                                        <span class="thumbs">
+                                            <span class="empty"></span>
+                                            <span class="empty"></span>
+                                            <span class="empty"></span>
+                                            <span class="empty"></span>
+                                        </span>
+                            	      {% endif %}
+                          
+                                </div>
+                                <div class="followBoard">
+                                   <a class="Button13 Button2 WhiteButton InlineButton" href="/huangxia/favorite-places-spaces/settings/">Edit</a>
+                                </div>
+                            </div> 
+        	  	        </div>
+        	        </li>
+        	    {% endfor %}
+        	</ul>
+        {% else %}
+            <h3>no menus for you</h3>
+        {% endif %}
+        
+	</div>

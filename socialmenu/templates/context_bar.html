@@ -1,0 +1,74 @@
+<script type="text/javascript" src="/site_media/follow_unfollow.js"></script>
+{% load friendshiptags %}
+{% followingcount actualuser as followingnum%}
+{% followerscount actualuser as followernum%}
+
+<div class="container sticky" id="ContextBar">
+    <div class="FixedContainer">
+        <ul class="links"> 
+          <li>
+          	  {% if not subpage %}
+                  <a class="selected" href="/huangxia/">
+              {% else %}
+                  <a href="/user/{{username}}/">
+              {% endif %}
+              <strong>{{catagoryandmenu|length}}</strong> Catagories
+              </a>
+          </li>    
+          <li>
+          	{% if subpage and subpage == "menus" %}
+                <a class="selected" href="/user/{{username}}/menus/">
+            {% else %}
+                <a href="/user/{{username}}/menus/">
+            {% endif %}
+            <strong>{{menus|length}}</strong> Menus
+            </a>
+          </li>    
+          <li>
+              <a href="/user/{{username}}/likes/">
+                  <strong>{{likes}}</strong> Likes
+              </a>
+          </li>    
+          <li>
+              <a href="/huangxia/activity/">Activity</a>
+          </li>
+
+      </ul>
+      <ul class="follow">    
+          <li>
+          	  {% if subpage and subpage == "followers" %}
+                  <a class="selected" href="/user/{{username}}/followers/">
+              {% else %}
+                  <a  href="/user/{{username}}/followers/">
+              {% endif %}
+                  <strong>{{ followernum }}</strong> Followers
+              </a>
+          </li>
+          
+          <li>
+          	  {% if subpage and subpage == "following" %}
+                 <a class="selected" href="/user/{{username}}/following/">
+              {% else %}
+                 <a href="/user/{{username}}/following/">
+              {% endif %}
+                  <strong>{{followingnum}}</strong> Following
+              </a>
+          </li>            
+      </ul>
+
+      <div class="action">
+      	  {% if userself %}
+              <a href="/edit_profile/{{username}}/" class="Button13 Button WhiteButton Left Tab"><strong>Edit Profile</strong><span></span></a>
+              <a tooltip="&lt;strong&gt;Rearrange Boards&lt;/strong&gt;" href="/sort_boards/" class="Button13 Button WhiteButton Right Tab" id="RearrangeButton"><strong></strong><span></span></a>
+              <a href="#" tooltip="&lt;strong&gt;Cancel&lt;/strong&gt;" class="close hidden" id="RearrangeCancel">close</a>      
+          {% else %}
+              {% if isFriend %}
+                  <a class="Button Button13 RedButton followuserbutton" action="{{username}}" data-text-unfollow="Unfollow All" data-text-follow="Follow All">Unfollow All </a>
+              {% else %}
+                  <a class="Button Button13 RedButton followuserbutton" action="{{username}}" data-text-unfollow="follow All" data-text-follow="Follow All"> Follow All </a>
+              {% endif %}
+          {% endif %}
+          
+      </div>      
+  </div>
+</div>

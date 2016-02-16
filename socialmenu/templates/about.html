@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block title %}About{% endblock %}
+{% block head %}About{% endblock %}
+{% block content %}
+     {% include "main_header.html" %}
+     <div id="AboutContainer">
+        <div id="AboutContent">
+            <div id="AboutLeft">
+                <ul>
+                    <li>
+                        <a {% if not subpage %} class="selected loaded"{% endif %} href="/about/">
+                            <span>What is Social Menu?</span>
+                            <span class="pointer normal"></span>
+                            <span class="pointer hover"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a {% if subpage == 'etiquette' %} class="selected loaded"{% endif %} href="/about/etiquette/">
+                            <span>SocialMenu Etiquette</span>
+                            <span class="pointer normal"></span>
+                            <span class="pointer hover"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a {% if subpage == 'help' %} class="selected loaded"{% endif %} href="/about/help/">
+                            <span>Getting Started</span>
+                            <span class="pointer normal"></span>
+                            <span class="pointer hover"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a {% if subpage == 'support' %} class="selected loaded"{% endif %} href="/about/support">
+                            <span>Support</span>
+                            <span class="pointer normal"></span>
+                            <span class="pointer hover"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a {% if subpage == 'goodies' %} class="selected loaded"{% endif %} href="/about/goodies/">
+                            <span>Goodies</span>
+                            <span class="pointer normal"></span>
+                            <span class="pointer hover"></span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a {% if subpage == 'careers' %} class="selected loaded"{% endif %} href="/about/careers/">
+                            <span>Careers</span>
+                            <span class="pointer normal"></span>
+                            <span class="pointer hover"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a {% if subpage == 'press' %} class="selected loaded"{% endif %} href="/about/press/">
+                            <span>Press</span>
+                            <span class="pointer normal"></span>
+                            <span class="pointer hover"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a {% if subpage == 'team' %} class="selected loaded"{% endif %} href="/about/team/">
+                            <span>Team</span>
+                            <span class="pointer normal"></span>
+                            <span class="pointer hover"></span>
+                        </a>
+                    </li>
+                </ul>
+                <img id="NavRule" alt="Navigation Rule" src="/site_media/images/NavRule.png">
+                <ul>
+	                <li>
+                        <a {% if subpage == 'terms' %} class="selected loaded"{% endif %} href="/about/terms/">
+                            <span>Terms &amp; Privacy</span>
+                            <span class="pointer normal"></span>
+                            <span class="pointer hover"></span>
+                        </a>
+                    </li>
+	                <li>
+                        <a {% if subpage == 'copyright' %} class="selected loaded"{% endif %} href="/about/copyright/">
+                            <span>Copyright &amp; Trademark</span>
+                            <span class="pointer normal"></span>
+                            <span class="pointer hover"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div><!-- #AboutLeft -->
+
+            <div id="AboutRight">
+            	{% if not subpage %}           
+                    {% include "whatissocialmenu.html" %}
+                {% elif subpage == 'etiquette' %}
+                   {% include "etiquette.html" %}
+                {% elif subpage == 'help' %}
+                    {% include "help.html" %}
+                {% elif subpage == 'support' %}
+                    {% include "support.html" %}
+                {% elif subpage == 'goodies' %}
+                    {% include "goodies.html" %}
+                {% elif subpage == 'careers' %}
+                    {% include "careers.html" %}
+                {% elif subpage == 'team' %}
+                    {% include "team.html" %}
+                {% elif subpage == 'terms' %}
+                    {% include "terms.html" %}
+                {% elif subpage == 'press' %}
+                    {% include "press.html" %}
+                {% elif subpage == 'copyright' %}
+                    {% include "copyright.html" %}
+                {% endif %}
+            </div><!-- #AboutRight -->
+
+        </div><!-- #AboutContent -->
+    </div>
+{% endblock %}

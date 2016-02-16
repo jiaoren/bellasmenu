@@ -1,0 +1,50 @@
+{% load thumbnail %}
+<ul id="Navigation">
+	        <li><a return false" class="nav" href="/submit_menu/">Add<span class="PlusIcon"></span></a></li>
+                         <li><a return false" class="nav" href="/reservation/">Reservation</a></li>
+                        <li><a return false" class="nav" href="#:">Friend's Choice</a></li>
+			<li>
+				<a class="nav" href="/about/">About <span></span> </a>
+				<ul>
+					<li>
+						<a href="/about/help/">Help</a>
+					</li>
+					<li class="beforeDivider">
+						<a href="/about/goodies/">Mobile</a>
+					</li>
+					<li class="divider">
+						<a href="/about/careers/">Careers</a>
+					</li>
+					<li>
+						<a href="/about/team/">Team</a>
+					</li>
+					<li class="divider">
+						<a href="/about/terms/">Terms of Service</a>
+					</li>
+					<li>
+						<a href="/about/copyright/">Copyright</a>
+					</li>
+				</ul>
+			</li>
+			
+			
+			<li>
+				{% if user.username %}
+				    
+				    <li id="UserNav">
+                        <a class="nav" href="/user/{{requestuser}}/">{% thumbnail profile.avatar "50x50" crop="center" as im %}<img alt="img" src="{{im.url}}">{% endthumbnail %}{{profile.firstname}}<span></span></a>
+                        <ul>
+                            <li><a href="#">Invite Friends</a></li>
+                            <li class="#"><a href="#">Find Friends</a></li>
+                            <li class="divider"><a href="/user/{{username}}/">Catagories</a></li>
+                            <li><a href="/user/{{requestuser}}/menus/">Menus</a></li>
+                            <li><a href="/user/{{requestuser}}/likes/">Likes</a></li>
+                            <li class="divider"><a href="/edit_profile/{{requestuser}}/">Settings</a></li>
+                            <li></li><a href="/logout">Logout</a></li>
+            </ul>
+        </li>
+				{% else %}
+				    <a class="nav LoginNav" href="/login">Login</a>
+				{% endif %}
+			</li>
+		</ul>

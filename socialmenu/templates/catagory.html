@@ -1,0 +1,30 @@
+{% extends "profile_base.html" %}
+{% block title %}{{ username }}{% endblock %}
+{% block head %}Menus for {{ username }}{% endblock %}
+{% block content %}
+    {% include "user_header.html" %}
+    {% load friendshiptags %}
+    {% load thumbnail %}
+    {% followerscount user as followernum%}
+    <div class="BoardLayout" id="wrapper" style="width: 1442px; opacity: 1; visibility: visible;">
+        <div id="BoardTitle">
+            <h1 class="serif"><strong>{{catagoryname}}<span id="BoardLikeButton"><fb:like colorscheme="light" font="lucida grande" action="like" width="90" show_faces="false" layout="button_count" href="http://pinterest.com/huangxia/my-style/" class=" fb_edge_widget_with_comment fb_iframe_widget"><span style="height: 20px; width: 90px;"><iframe scrolling="no" id="f164c4ac4337e88" name="f1705083e2d5cd" style="border: medium none; overflow: hidden; height: 20px; width: 90px;" title="Like this content on Facebook." class="fb_ltr " src="http://www.facebook.com/plugins/like.php?action=like&amp;api_key=274266067164&amp;channel_url=http%3A%2F%2Fstatic.ak.facebook.com%2Fconnect%2Fxd_arbiter.php%3Fversion%3D9%23cb%3Df163f450319974c%26origin%3Dhttp%253A%252F%252Fpinterest.com%252Ff13431364d84e46%26domain%3Dpinterest.com%26relation%3Dparent.parent&amp;colorscheme=light&amp;extended_social_context=false&amp;font=lucida%20grande&amp;href=http%3A%2F%2Fpinterest.com%2Fhuangxia%2Fmy-style%2F&amp;layout=button_count&amp;locale=en_US&amp;node_type=link&amp;sdk=joey&amp;show_faces=false&amp;width=90"></iframe></span></fb:like></span></strong></h1>
+            <div id="BoardMeta">
+                <div id="BoardUsers">
+                    {% thumbnail user.get_profile.avatar "50x50" crop="center" as im %}
+                    <a class="ImgLink" href="/user/{{user.username}}/"><img alt="Photo of {{user.username}}" src="{{im.url}}"></a>
+                    {% endthumbnail %}
+                    <span id="BoardUserName"><a title="huang xia" href="/user/{{user.username}}/">{{user.get_profile.firstname}} {{user.get_profile.lastname}}</a></span>
+                </div>
+                <div id="BoardStats">
+                    <a href="/user/{{user.username}}/followers/"><strong>{{followernum}}</strong> <span>followers</span></a>,
+                    <strong>{{menus|length}}</strong> menus
+                </div>
+                <div id="BoardButton">      
+                    <a class="Button Button13 WhiteButton" href="/huangxia/my-style/settings/">Edit Board</a>
+                </div>
+            </div><!-- #BoardMeta -->
+    </div><!-- #BoardTitle -->
+    {% include "wrapper.html" %}
+    
+{% endblock %}
